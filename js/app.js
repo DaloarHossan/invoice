@@ -15,19 +15,41 @@ document.getElementById('add-details-btn').addEventListener('click',function(){
 	const iteamInput=document.getElementById('item-name-input').value;
 	const priceInput=document.getElementById('item-price-input').value;
 	const quantityInput=document.getElementById('item-quantity-input').value;
-	console.log(iteamInput,priceInput,quantityInput)
+
 	const totalIntial=parseFloat(priceInput)*parseFloat(quantityInput);
 	
 	const table=document.createElement('tr');
 	table.innerHTML=`<th>${iteamInput}</th>
 	                  <td>${priceInput}</td>
 	                  <td>${quantityInput}</td>
-					  <td>${totalIntial}</td>
+					  <td class="total">${parseFloat(totalIntial)}</td>
 					  `
     const tableBody=document.getElementById('info-table');
 	tableBody.appendChild(table);
-	const subTotal=document.getElementById('sub-total');
-	subTotal.innerText=total;
+	const subToTal=document.getElementById('sub-total');
+	const sub=calSubTotal();
+    subToTal.innerText=sub;
+	const taxValue=document.getElementById('tax');
+	const tax=sub*.2;
+	taxValue.innerText=tax.toFixed(2);
+	const grandTotal=document.getElementById('grand-total');
+	const FinalTotal=document.getElementById('grand-total-2');
+	const grand=sub+tax;
+	grandTotal.innerText=grand;
+	FinalTotal.innerText=grand;
 })
 
+function calSubTotal(){
+	let subtotal=0;
+	const totalprice=document.getElementsByClassName('total');
+	
+	for(i=0;i<totalprice.length;i++){
+		const element=totalprice[i];
+		const price=parseFloat(element.innerText);
+		subtotal=subtotal+price;
+	}
+
+	return subtotal;
+	
+}
 
